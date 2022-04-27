@@ -3,7 +3,7 @@ using System;
 
 public class MainCamera : Camera2D {
 
-    private float _minZoom = 0.1f;
+    private float _minZoom = 0.01f;
     private float _maxZoom = 3.0f;
     private float _zoomInterval = 0.1f;
     private float _zoomSpeed;
@@ -31,7 +31,7 @@ public class MainCamera : Camera2D {
         // SetPhysicsProcess(isZoomComplete && isMovementComplete);
     }
 
-    public override void _UnhandledInput(InputEvent inputEvent) {
+    public override void _Input(InputEvent inputEvent) {
         if (inputEvent.IsActionPressed("shift") && !_isSpeedModifierPressed) {
             _isSpeedModifierPressed = true;
             _moveSpeed *= 5;

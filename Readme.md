@@ -12,3 +12,6 @@
 ### VS Code Styling
 1. Add `omnisharp.json` to root of project
 2. Reload with `Ctrl-Shift-P` and select `Developer: Reload Window`
+
+### Notes
+Performance gets worse with increased number of objects on screen. Seems to be no perceivable change in performance when modifying size of each sprite.

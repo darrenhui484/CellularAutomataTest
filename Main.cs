@@ -11,12 +11,11 @@ public class Main : Node {
     public override void _Ready() {
         _testScene = GetNode<TestScene>("TestScene");
         _testUI = GetNode<TestUI>("TestUI");
-
-        _testUI.Info.Text = "hello";
         _testUI.Connect("on_generate", this, "_onGenerate");
     }
 
     public override void _PhysicsProcess(float delta) {
+        _testUI.Fps.Text = Godot.Engine.GetFramesPerSecond().ToString();
         ProfilerUtil.PrintMemoryOnChange();
     }
 

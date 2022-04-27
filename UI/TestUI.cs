@@ -3,21 +3,24 @@ using System.Linq;
 using Godot;
 public class TestUI : Control {
 
-    public Label Info;
+    public Label Fps;
     private Button _generate;
     private List<HSliderLineEdit> _sliders;
     private Dictionary<string, float> _sliderValues = new Dictionary<string, float>();
     [Signal] public delegate void on_generate(Dictionary<string, float> sliderValues);
 
     public override void _Ready() {
-        Info = GetNode<Label>("CanvasLayer/TestUIContainer/Info");
+        Fps = GetNode<Label>("CanvasLayer/TestUIContainer/FPS");
         _generate = GetNode<Button>("CanvasLayer/TestUIContainer/Generate");
-        _generate.Connect("pressed", this, "_onGeneratePressed");
+        _generate.Connect("pressed", this, "_onGenerate");
         _sliders = GetNode<VBoxContainer>("CanvasLayer/TestUIContainer/Sliders")
             .GetChildren()
             .Cast<HSliderLineEdit>()
             .ToList();
-        _sliders.ForEach((slider) => _sliderValues.Add(slider.Name, slider.Value));
+        _sliders.ForEach((slider) => {
+            _sliderValues.Add(slider.Name, slider.Value);
+            slider.Connect("value_changed", this, "_onGenerate");
+        });
     }
 
     public Dictionary<string, float> GetSliderValues() {
@@ -25,7 +28,7 @@ public class TestUI : Control {
         return _sliderValues;
     }
 
-    private void _onGeneratePressed() {
+    private void _onGenerate() {
         _sliders.ForEach((slider) => _sliderValues[slider.Name] = slider.Value);
         EmitSignal("on_generate", _sliderValues);
     }

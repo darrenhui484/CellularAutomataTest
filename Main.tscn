@@ -19,8 +19,10 @@ drag_margin_bottom = 0.0
 script = ExtResource( 2 )
 
 [node name="TestScene" parent="." instance=ExtResource( 1 )]
-Width = 100
-Height = 100
+TileSize = 1
+Width = 250
+Height = 250
+TileImagePath = "res://Assets/white-single.png"
 
 [node name="TestUI" type="Control" parent="."]
 margin_right = 136.0
@@ -30,13 +32,13 @@ script = ExtResource( 3 )
 [node name="CanvasLayer" type="CanvasLayer" parent="TestUI"]
 
 [node name="TestUIContainer" type="VBoxContainer" parent="TestUI/CanvasLayer"]
-margin_left = 50.0
-margin_top = 50.0
-margin_right = 249.0
-margin_bottom = 121.0
+margin_left = 51.0
+margin_top = 59.0
+margin_right = 519.0
+margin_bottom = 209.0
 
-[node name="Info" type="Label" parent="TestUI/CanvasLayer/TestUIContainer"]
-margin_right = 199.0
+[node name="FPS" type="Label" parent="TestUI/CanvasLayer/TestUIContainer"]
+margin_right = 468.0
 margin_bottom = 14.0
 
 [node name="Generate" type="Button" parent="TestUI/CanvasLayer/TestUIContainer"]
@@ -48,33 +50,37 @@ text = "Generate"
 
 [node name="Sliders" type="VBoxContainer" parent="TestUI/CanvasLayer/TestUIContainer"]
 margin_top = 42.0
-margin_right = 199.0
+margin_right = 468.0
 margin_bottom = 150.0
 
 [node name="Octaves" parent="TestUI/CanvasLayer/TestUIContainer/Sliders" instance=ExtResource( 5 )]
-margin_right = 199.0
+margin_right = 468.0
 margin_bottom = 24.0
 Value = 3.0
 MaxValue = 9.0
 MinValue = 1.0
+Step = 1.0
 
 [node name="Period" parent="TestUI/CanvasLayer/TestUIContainer/Sliders" instance=ExtResource( 5 )]
 margin_top = 28.0
-margin_right = 199.0
+margin_right = 468.0
 margin_bottom = 52.0
 Value = 64.0
-MaxValue = 200.0
+MaxValue = 1000.0
+Step = 1.0
 
 [node name="Lacunarity" parent="TestUI/CanvasLayer/TestUIContainer/Sliders" instance=ExtResource( 5 )]
 margin_top = 56.0
-margin_right = 199.0
+margin_right = 468.0
 margin_bottom = 80.0
 Value = 2.0
 MaxValue = 20.0
+Step = 0.1
 
 [node name="Persistence" parent="TestUI/CanvasLayer/TestUIContainer/Sliders" instance=ExtResource( 5 )]
 margin_top = 84.0
-margin_right = 199.0
+margin_right = 468.0
 margin_bottom = 108.0
 Value = 0.5
 MaxValue = 10.0
+Step = 0.05

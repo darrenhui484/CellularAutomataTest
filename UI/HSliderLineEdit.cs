@@ -11,6 +11,9 @@ public class HSliderLineEdit : HBoxContainer {
     [Export] public float MinValue = 0;
     [Export]
     public float Value { get; private set; }
+    [Export] public float Step;
+
+    [Signal] public delegate void value_changed();
 
     public override void _Ready() {
         _name = GetNode<Label>("Name");
@@ -20,6 +23,7 @@ public class HSliderLineEdit : HBoxContainer {
         _hSlider.MaxValue = MaxValue;
         _hSlider.MinValue = MinValue;
         _hSlider.Value = Value;
+        _hSlider.Step = Step;
 
         _lineEdit = GetNode<LineEdit>("LineEdit");
         _lineEdit.Text = Value.ToString();
@@ -40,6 +44,7 @@ public class HSliderLineEdit : HBoxContainer {
     private void _onSliderValueChanged(float value) {
         _lineEdit.Text = value.ToString();
         Value = value;
+        EmitSignal("value_changed");
     }
 
     private void _onFocusExited() {
@@ -53,6 +58,7 @@ public class HSliderLineEdit : HBoxContainer {
             _hSlider.Disconnect("value_changed", this, "_onSliderValueChanged");
             _hSlider.Value = val;
             _hSlider.Connect("value_changed", this, "_onSliderValueChanged");
+            EmitSignal("value_changed");
         } catch (Exception e) {
 
         }
