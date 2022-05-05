@@ -21,26 +21,12 @@ public class TestScene : Node2D {
     public OpenSimplexNoise Noise = new OpenSimplexNoise();
     public RandomNumberGenerator rng = new RandomNumberGenerator();
 
-    public enum Tiles {
-        Empty,
-        LightGreen,
-        Green,
-        Blue,
-        Brown
-    }
 
     public override void _Ready() {
         _widthPx = Width * TileSize;
         _heightPx = Height * TileSize;
 
-        Image image = new Image();
-        Error error = image.Load(TileImagePath);
-        if (error != Error.Ok) {
-            throw new InvalidOperationException("Issue importing image");
-        }
-
-        ImageTexture imageTexture = new ImageTexture();
-        imageTexture.CreateFromImage(image);
+        ImageTexture imageTexture = ImageLoader.LoadImage(TileImagePath);
 
         _grid = new Grid(Height, Width, TileSize);
         AddChild(_grid);
@@ -60,9 +46,6 @@ public class TestScene : Node2D {
 
     private float _mapRange(float value, float start, float end, float refStart, float refEnd) {
         return refStart + ((refEnd - refStart) * ((value - start) / (end - start)));
-    }
-
-    public override void _PhysicsProcess(float delta) {
     }
 
     public void GenerateNoise() {

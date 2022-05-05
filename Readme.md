@@ -14,4 +14,8 @@
 2. Reload with `Ctrl-Shift-P` and select `Developer: Reload Window`
 
 ### Notes
+## Custom Grid with sprites for each tile
 Performance gets worse with increased number of objects on screen. Seems to be no perceivable change in performance when modifying size of each sprite.
+
+## Godot Tilemap and Tileset
+Performance outperforms custom implementation by a lot. No additional nodes per tile used. No need to batch process.
