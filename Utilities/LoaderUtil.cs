@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public static class ImageLoader {
+public static class LoaderUtil {
     public static ImageTexture LoadImage(string filepath) {
         Image image = new Image();
         Error error = image.Load(filepath);
@@ -13,4 +13,9 @@ public static class ImageLoader {
         imageTexture.CreateFromImage(image);
         return imageTexture;
     }
+
+    public static Node LoadScene(string filepath){
+        return ((PackedScene)ResourceLoader.Load(filepath)).Instance();
+
+}
 }

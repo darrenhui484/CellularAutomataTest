@@ -26,7 +26,7 @@ public class TestScene : Node2D {
         _widthPx = Width * TileSize;
         _heightPx = Height * TileSize;
 
-        ImageTexture imageTexture = ImageLoader.LoadImage(TileImagePath);
+        ImageTexture imageTexture = LoaderUtil.LoadImage(TileImagePath);
 
         _grid = new Grid(Height, Width, TileSize);
         AddChild(_grid);
