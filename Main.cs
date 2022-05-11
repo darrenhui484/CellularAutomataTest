@@ -10,10 +10,10 @@ public class Main : Node {
 
     public override void _Ready() {
         _tileMapTest = LoaderUtil.LoadScene("res://Scenes/TileMapTest/TileMapTest.tscn") as TileMapTest;
-		AddChild(_tileMapTest);
-		_testUI = LoaderUtil.LoadScene("res://UI/TestUI.tscn") as TestUI;
+        AddChild(_tileMapTest);
+        _testUI = LoaderUtil.LoadScene("res://UI/TestUI.tscn") as TestUI;
         _testUI.Connect("on_generate", this, "_onGenerate");
-		AddChild(_testUI);
+        AddChild(_testUI);
     }
 
     public override void _PhysicsProcess(float delta) {

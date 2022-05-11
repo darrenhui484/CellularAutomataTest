@@ -11,6 +11,8 @@ public class TileMapTest : TileMap {
     public OpenSimplexNoise Noise = new OpenSimplexNoise();
     public RandomNumberGenerator rng = new RandomNumberGenerator();
 
+    private const string _baseTilePath = "res://Assets/white.png";
+
     public enum Tiles {
         Grass,
         Water,
@@ -29,7 +31,6 @@ public class TileMapTest : TileMap {
         Noise.Period = 64;
         Noise.Lacunarity = 2;
         Noise.Persistence = 0.5f;
-
 
         GenerateNoise();
     }
@@ -106,12 +107,12 @@ public class TileMapTest : TileMap {
     }
 
     private void _generateTiles(Action<ImageTexture> createTileSet) {
-        ImageTexture image = LoaderUtil.LoadImage("res://Assets/white.png");
+        ImageTexture image = LoaderUtil.LoadImage(_baseTilePath);
         createTileSet.Invoke(image);
     }
 
     private void _generateTiles(Action<ImageTexture, int> createTileSet, int granularity) {
-        ImageTexture image = LoaderUtil.LoadImage("res://Assets/white.png");
+        ImageTexture image = LoaderUtil.LoadImage(_baseTilePath);
 
         createTileSet.Invoke(image, granularity);
     }
