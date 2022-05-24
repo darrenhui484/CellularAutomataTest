@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Sprout Lands - Sprites - Basic pack/Characters/Basic Charakter Spritesheet.png" type="Texture" id=1]
 [ext_resource path="res://Actors/BasicActor/BasicActor.cs" type="Script" id=2]
+[ext_resource path="res://Actors/BasicActor/FaceDirection.cs" type="Script" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.0
@@ -19,13 +20,14 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 6 ]
+"values": [ 0 ]
 }
 
 [sub_resource type="Animation" id=3]
 resource_name = "WalkDown"
+length = 0.4
 loop = true
-step = 0.5
+step = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -33,7 +35,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 2, 3 ]
@@ -41,8 +43,9 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=4]
 resource_name = "WalkLeft"
+length = 0.4
 loop = true
-step = 0.5
+step = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -50,7 +53,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 10, 11 ]
@@ -58,8 +61,9 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=5]
 resource_name = "WalkRight"
+length = 0.4
 loop = true
-step = 0.5
+step = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -67,7 +71,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 14, 15 ]
@@ -75,8 +79,9 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=6]
 resource_name = "WalkUp"
+length = 0.4
 loop = true
-step = 0.5
+step = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -84,13 +89,21 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
+"times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 6, 7 ]
 }
 
+[sub_resource type="CircleShape2D" id=7]
+radius = 250.0
+
+[sub_resource type="CircleShape2D" id=8]
+radius = 35.0
+
 [node name="BasicActor" type="KinematicBody2D"]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -98,7 +111,6 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 hframes = 4
 vframes = 4
-frame = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 4 )
@@ -110,3 +122,20 @@ anims/WalkDown = SubResource( 3 )
 anims/WalkLeft = SubResource( 4 )
 anims/WalkRight = SubResource( 5 )
 anims/WalkUp = SubResource( 6 )
+
+[node name="FaceDirection" type="Node2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="DetectionZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionZone"]
+shape = SubResource( 7 )
+
+[node name="InteractableZone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableZone"]
+shape = SubResource( 8 )
