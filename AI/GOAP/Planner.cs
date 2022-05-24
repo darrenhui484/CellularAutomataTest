@@ -132,7 +132,7 @@ public class Planner {
     }
 
     private WorldState _getRelevantWorldState(List<string> states) {
-
+        // query for relevant states to merge into working world state
     }
 
     private WorldState _getRelevantWorldState(WorldState targetWorldState) {
