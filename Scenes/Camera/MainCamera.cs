@@ -43,9 +43,9 @@ public class MainCamera : Camera2D {
         }
 
 
-        if (inputEvent.IsActionPressed("scroll_up")) {
+        if (inputEvent.IsActionPressed("scroll_up") || inputEvent.IsActionPressed("zoom_in")) {
             _zoomIn();
-        } else if (inputEvent.IsActionPressed("scroll_down")) {
+        } else if (inputEvent.IsActionPressed("scroll_down") || inputEvent.IsActionPressed("zoom_out")) {
             _zoomOut();
         }
     }

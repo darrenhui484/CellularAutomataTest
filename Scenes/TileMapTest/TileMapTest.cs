@@ -20,6 +20,8 @@ public class TileMapTest : TileMap {
         Tree
     }
 
+    private const Tuple<int, int>[] _neighbors = [(0, 1), (0, -1), (-1, 0), (1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)];
+
     public override void _Ready() {
         // _generateTiles(_createGrayscaleTileset, TileGranularity);
         _generateTiles(_createCustomTileSet);
@@ -56,7 +58,7 @@ public class TileMapTest : TileMap {
         if (noiseValue > -0.2f && noiseValue < 0.2f) {
             return (int)Tiles.Water;
         } else if (noiseValue >= 0.4f || noiseValue <= -0.4f) {
-            if(rng.Randi() % 5 == 1) return (int)Tiles.Tree;
+            if (rng.Randi() % 5 == 1) return (int)Tiles.Tree;
 
             return (int)Tiles.Grass;
         } else {
@@ -116,4 +118,52 @@ public class TileMapTest : TileMap {
 
         createTileSet.Invoke(image, granularity);
     }
+
+    // **** cellular automata
+
+    private void _tick() {
+
+    }
+
+    private void _updateCells() {
+
+    }
+
+
+    private int _getCellState(int x, int y, int emptyTileId, int livingTileId) {
+        int tileId = GetCell(x, y);
+
+        int numAdjCells = _getLivingAdjacentCellCount(x, y, emptyTileId);
+
+        if (tileId == emptyTileId) {
+            if (numAdjCells < 3) {
+                return emptyTileId;
+            } else {
+                return livingTileId;
+            }
+        } else {
+            if (numAdjCells < 3 || numAdjCells > 7) {
+                return emptyTileId;
+            } else {
+                return livingTileId;
+            }
+        }
+    }
+
+    private int _getLivingAdjacentCellCount(int x, int y, int emptyTileId) {
+        int livingAdjacentCells = 0;
+        foreach (Tuple<int, int> delta in _neighbors) {
+            int newX = x + delta.Item1;
+            int newY = y + delta.Item2;
+            if (_isOutOfBounds(newX, newY)) continue;
+            if (GetCell(newX, newY) != emptyTileId) livingAdjacentCells++;
+        }
+        return livingAdjacentCells;
+    }
+
+    private bool _isOutOfBounds(int x, int y) {
+        return x < 0 && x > Width && y < 0 && y > Height;
+    }
+
+
 }

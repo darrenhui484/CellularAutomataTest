@@ -60,15 +60,15 @@ public class Planner {
 
     }
 
-    public Queue<Action> GetPlan(Goal goal, List<Action> actions) {
-        return SearchActionSpace(goal.TargetState(), actions);
-    }
+    // public Queue<Action> GetPlan(Goal goal, List<Action> actions) {
+    //     return SearchActionSpace(goal.TargetState(), actions);
+    // }
 
-    public Queue<Action> SearchActionSpace(WorldState targetState, List<Action> actions) {
-        var pQueue = new PriorityQueue<Action>();
+    // public Queue<Action> SearchActionSpace(WorldState targetState, List<Action> actions) {
+    //     var pQueue = new PriorityQueue<Action>();
 
-        Search(pQueue, actions, targetState, _getCurrentWorldState());
-    }
+    //     Search(pQueue, actions, targetState, _getCurrentWorldState());
+    // }
 
     // TODO change list of actions to bucketed sets of actions
     public void Search(PriorityQueue<Action> pQueue, List<Action> actions, WorldState targetState, WorldState currentWorldState) {
@@ -84,7 +84,7 @@ public class Planner {
         Action currentAction = pQueue.Dequeue();
 
 
-        WorldState workingState = _getRelevantWorldState();
+        // WorldState workingState = _getRelevantWorldState();
 
         // update current world state with effects of current action
         // check if target world state is satisfied, exit if true
@@ -114,34 +114,34 @@ public class Planner {
 
     }
 
-    private int calculateHeuristic(Action action, WorldState currentState, WorldState targetState) {
-        // apply action effects on current state
-        currentState.ApplyEffects(action);
-        // calculate distance from target
+    // private int calculateHeuristic(Action action, WorldState currentState, WorldState targetState) {
+    //     // apply action effects on current state
+    //     currentState.ApplyEffects(action);
+    //     // calculate distance from target
 
-        // return actions cost + distance to target
-    }
+    //     // return actions cost + distance to target
+    // }
 
-    private int _calculateDistance(WorldState currentState, WorldState targetState) {
-        foreach (KeyValuePair<string, State> kvp in targetState.States) {
-            string key = kvp.Key;
-            if (currentState.States.ContainsKey(key)) {
+    // private int _calculateDistance(WorldState currentState, WorldState targetState) {
+    //     foreach (KeyValuePair<string, State> kvp in targetState.States) {
+    //         string key = kvp.Key;
+    //         if (currentState.States.ContainsKey(key)) {
 
-            }
-        }
-    }
+    //         }
+    //     }
+    // }
 
-    private WorldState _getRelevantWorldState(List<string> states) {
-        // query for relevant states to merge into working world state
-    }
+    // private WorldState _getRelevantWorldState(List<string> states) {
+    //     // query for relevant states to merge into working world state
+    // }
 
-    private WorldState _getRelevantWorldState(WorldState targetWorldState) {
+    // private WorldState _getRelevantWorldState(WorldState targetWorldState) {
 
-        foreach (string stateKey in targetWorldState.States.Keys) {
-            // query relevant data to get local world state
-        }
+    //     foreach (string stateKey in targetWorldState.States.Keys) {
+    //         // query relevant data to get local world state
+    //     }
 
-    }
+    // }
 }
 
 
